@@ -1,20 +1,5 @@
-#include <vector>
 #include <iostream>
-
-auto remove_elements(std::vector<int>& input, int target) {
-    std::vector<int> result(input.size());
-    auto result_idx = 0;
-
-    for (const auto& i : input) {
-        if (i != target) {
-            result[result_idx] = i;
-            ++result_idx;
-        }
-    }
-    result.resize(result_idx);
-
-    return result;
-}
+#include "../../include/week_1.hpp"
 
 int main() {
     auto size = 0;
