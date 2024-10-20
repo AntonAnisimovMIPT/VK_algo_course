@@ -1,69 +1,105 @@
 #include <list>
 #include "../../include/week_2.hpp"
 
-/*
-bool checkCycleList(MyList<int>& input) {
-    if (input.head() != nullptr || input.head().next() != nullptr) {
+bool hasCycle(ListNode* head) {
+    if (head == nullptr || head->next == nullptr) {
         return false;
     }
 
-    auto sl_ptr = input.head();
-    auto fst_ptr = input.head().next();
+    auto slow = head;
+    auto fast = head->next;
 
-    while (sl_ptr != fst_ptr) {
-        if (fst_ptr == nullptr || fst_ptr.next() == nullptr) {
+    while (slow != fast) {
+        if (fast == nullptr || fast->next == nullptr) {
             return false;
         }
 
-        sl_ptr = sl_ptr.next();
-        fst_ptr = fst_ptr.next().next();
+        slow = slow->next;
+        fast = fast->next->next;
     }
     return true;
 }
 
-void reverseList(MyList<int>& input) {
-    auto prev_ptr = nullptr;
-    auto cur_ptr = input.head();
+ListNode* reverseLinkedList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* cur = head;
 
-    while (cur_ptr != nullptr) {
-        auto next_ptr = cur_ptr.next();
-        cur_ptr.next() = prev_ptr;
-        prev_ptr = cur_ptr;
-        cur_ptr = next_ptr;
+    while (cur != nullptr) {
+        auto next = cur->next;
+        cur->next = prev; /// процесс переворачивания указателей
+        prev = cur;       ///
+        cur = next;       // для перехода на следующий узел
     }
 
-    // todo
+    head = prev; // не забыть
+    return head;
 }
 
-auto& findMidNode(MyList<int>& input) {
-    auto sl_ptr = input.head();
-    auto fst_ptr = input.head();
-    while (fst_ptr != nullptr && fst_ptr.next() != nullptr) {
-        sl_ptr = sl_ptr.next();
-        fst_ptr = fst_ptr.next().next();
+ListNode* middleNode(ListNode* head) {
+    auto slow = head;
+    auto fast = head;
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
     }
-    return sl_ptr;
+    return slow;
 }
 
-// removeElement
-MyList<int> removeElementList(MyList<int>& input, int val) {
-    MyList<int> result;
+ListNode* removeElements(ListNode* head, int val) {
 
-    auto dummy = new ListNode;
-    dummy.next() = input.head();
+    ListNode* dummy = new ListNode();
+    dummy->next = head;
 
-    auto pr_ptr = dummy;
-    auto cur_ptr = input.head();
+    ListNode* prev = dummy;
+    ListNode* cur = head;
 
-    while (cur_ptr != nullptr) {
-        if (cur_ptr.val() == val) {
-            pr_ptr.next() = cur_ptr.next();
+    while (cur != nullptr) {
+        if (cur->val == val) {
+            prev->next = cur->next;
+        } else {
+            prev = cur;
         }
-        cur_ptr = cur_ptr.next();
+        cur = cur->next;
     }
 
-    // todo
+    ListNode* new_head = dummy->next;
+    delete dummy;
+    return new_head;
+}
+
+std::pair<int, int> minPair(const std::vector<int>& input) {
+
+    if (input.size() < 2) {
+        return {0, 0};
+    }
+
+    auto tmp_abs = std::abs(input[0] - input[1]);
+    std::pair<int, int> result({input[0], input[1]});
+
+    for (size_t i = 1; i < input.size(); i++) {
+        if (std::abs(input[i - 1] - input[i]) < tmp_abs) {
+            tmp_abs = std::abs(input[i - 1] - input[i]);
+            result.first = input[i - 1];
+            result.second = input[i];
+        }
+    }
 
     return result;
 }
-*/
+
+int containers(const std::vector<int>& input) {
+
+    std::vector<int> stack;
+
+    for (const auto& i : input) {
+        if (i % 2 == 0) {
+            stack.push_back(i);
+        }
+    }
+
+    if (stack.empty()) {
+        return -1;
+    }
+
+    return stack.back();
+}
