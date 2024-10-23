@@ -36,8 +36,10 @@ jobs:
 
       - name: Run Google Tests
         run: |
-          cd build
-          for test_exe in $(find . -name "*tests.exe" -type f); do
+          cd build/test/bin
+          for test_exe in $(find . -name "tests_week_*" -type f); do
             echo "Running test: $test_exe"
             $test_exe
           done
+
+
