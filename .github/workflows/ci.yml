@@ -1,8 +1,6 @@
 name: C++ CI with Google Test
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches:
       - master
@@ -15,27 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code from your repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up CMake
       - name: Install CMake
         run: sudo apt-get install cmake
 
-      # Step 3: Set up GCC or Clang compiler (we will use GCC)
       - name: Install GCC
         run: sudo apt-get install g++-12
 
-      # Step 4: Install Google Test dependencies
       - name: Install Google Test dependencies
         run: sudo apt-get install libgtest-dev cmake
 
-      # Step 5: Build and run the tests
-      - name: Build project and run tests
+      - name: Build project and run ctest
         run: |
           mkdir build
           cd build
           cmake ..
           make
+          echo "ctest report:"
           ctest --output-on-failure
+
+      - name: Run Google Tests
+        run: |
+          cd build
+          for test_exe in $(find . -name "*tests.exe" -type f); do
+            echo "Running test: $test_exe"
+            $test_exe
+          done
