@@ -45,7 +45,7 @@ ListNode* middleNode(ListNode* head) {
     return slow;
 }
 
-ListNode* removeElements(ListNode* head, int val) {
+ListNode* removeElements(ListNode* head, const int val) {
 
     ListNode* dummy = new ListNode();
     dummy->next = head;

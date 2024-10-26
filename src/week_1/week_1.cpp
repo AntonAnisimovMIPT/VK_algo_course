@@ -15,7 +15,7 @@ std::vector<int> math_control(std::vector<int>& input) {
     return input;
 }
 
-std::vector<int> remove_elements(std::vector<int>& input, int target) {
+std::vector<int> remove_elements(std::vector<int>& input, const int target) {
     std::vector<int> result(input.size());
     auto result_idx = 0;
 

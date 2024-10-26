@@ -19,7 +19,7 @@ struct ListNode {
 bool hasCycle(ListNode* head);
 ListNode* reverseLinkedList(ListNode* head);
 ListNode* middleNode(ListNode* head);
-ListNode* removeElements(ListNode* head, int val);
+ListNode* removeElements(ListNode* head, const int val);
 
 std::pair<int, int> minPair(const std::vector<int>& input);
 int containers(const std::vector<int>& input);
