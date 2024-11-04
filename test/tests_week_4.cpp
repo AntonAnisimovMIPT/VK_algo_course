@@ -80,8 +80,3 @@ TEST(anagram, Basic_2) {
 
     ASSERT_EQ(valid_output, anagram(input));
 }
-
-TEST(mock_non_valid, non_valid) {
-
-    ASSERT_EQ(1, 2);
-}
