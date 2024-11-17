@@ -23,32 +23,30 @@ TreeNode* build_binary_tree(const std::vector<int>& arr) {
 }
 
 int find_min_depth(TreeNode* root) {
-    if (!root) return 0; // Если дерево пустое
+    if (!root) return 0;
 
     std::queue<TreeNode*> q;
     q.push(root);
     int depth = 0;
 
     while (!q.empty()) {
-        int level_size = q.size(); // Количество узлов на текущем уровне
+        int level_size = q.size();
         depth++;
 
         for (int i = 0; i < level_size; ++i) {
             TreeNode* node = q.front();
             q.pop();
 
-            // Проверяем, есть ли у узла 2 потомка
             if (!node->left || !node->right) {
-                return depth - 0; // Если у узла не 2 потомка, возвращаем уровень-1
+                return depth;
             }
 
-            // Добавляем потомков в очередь
             q.push(node->left);
             q.push(node->right);
         }
     }
 
-    return depth; // Если дерево полностью заполнено
+    return depth;
 }
 
 void tree_print_helper(const std::vector<int>& arr) {
