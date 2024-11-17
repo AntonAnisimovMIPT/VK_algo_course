@@ -13,7 +13,6 @@ file(MAKE_DIRECTORY ${BIN_DIR})
 include_directories(${INCLUDE_DIR})
 
 function(compile_week week_dir)
-    
     file(GLOB week_sources "${week_dir}/*.cpp")
     get_filename_component(week_name ${week_dir} NAME)
 
@@ -27,7 +26,7 @@ function(compile_week week_dir)
 
         if(source_name MATCHES "week_[0-9]+.cpp")
             message(STATUS "Week-implementation file ${source_name} was found successfully.")
-                set(week_file ${source_file})
+            set(week_file ${source_file})
             break()
         endif()
     endforeach()
@@ -39,9 +38,8 @@ function(compile_week week_dir)
     foreach(source_file ${week_sources})
         get_filename_component(source_file_name ${source_file} NAME_WE)
         get_filename_component(week_file_name ${week_file} NAME_WE)
- 
-        if(NOT source_file_name STREQUAL week_file_name)
 
+        if(NOT source_file_name STREQUAL week_file_name)
             message(STATUS "Compiling task ${week_file_name}/${source_file_name} with ${week_file}")
 
             add_executable(${source_file_name} ${source_file} ${week_file})
@@ -49,9 +47,7 @@ function(compile_week week_dir)
             set_target_properties(${source_file_name} PROPERTIES
                 RUNTIME_OUTPUT_DIRECTORY ${week_bin_dir}
             )
-                    
         endif()
-            
     endforeach()
 endfunction()
 
@@ -62,6 +58,7 @@ foreach(week_dir ${week_dirs})
 endforeach()
 
 option(ENABLE_TESTS "Enable building tests" ON)
+
 if(ENABLE_TESTS)
     enable_testing()
     add_subdirectory(test)
